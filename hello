@@ -1,0 +1,740 @@
+ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local Give1millioncash = Instance.new("TextLabel")
+local Give1millioncashButton = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local FlyButton = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local Fly = Instance.new("TextLabel")
+local UnlimitedhealthButton = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local Unlimitedhealth = Instance.new("TextLabel")
+local PrintTest = Instance.new("TextLabel")
+local PrintTestButton = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local Label = Instance.new("TextLabel")
+ 
+--Properties:
+ 
+ScreenGui.Parent = game.CoreGui
+ 
+main.Name = "main"
+main.Parent = ScreenGui
+main.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+main.Position = UDim2.new(0.0217687078, 0, 0.0605427995, 0)
+main.Size = UDim2.new(0, 222, 0, 288)
+main.Active = true
+main.Draggable = true
+ 
+ 
+UICorner.CornerRadius = UDim.new(0, 15)
+UICorner.Parent = main
+ 
+Give1millioncash.Name = "Give 1 million cash"
+Give1millioncash.Parent = main
+Give1millioncash.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Give1millioncash.BackgroundTransparency = 1.000
+Give1millioncash.BorderSizePixel = 0
+Give1millioncash.Position = UDim2.new(0, 0, 0.166666672, 0)
+Give1millioncash.Size = UDim2.new(0, 162, 0, 40)
+Give1millioncash.Font = Enum.Font.SourceSans
+Give1millioncash.Text = "Give 1 million cash"
+Give1millioncash.TextColor3 = Color3.fromRGB(255, 255, 255)
+Give1millioncash.TextScaled = true
+Give1millioncash.TextSize = 35.000
+Give1millioncash.TextWrapped = true
+ 
+Give1millioncashButton.Name = "Give 1 million cashButton"
+Give1millioncashButton.Parent = main
+Give1millioncashButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Give1millioncashButton.BorderSizePixel = 0
+Give1millioncashButton.Position = UDim2.new(0.77477479, 0, 0.166666672, 0)
+Give1millioncashButton.Size = UDim2.new(0, 30, 0, 30)
+Give1millioncashButton.Font = Enum.Font.SourceSans
+Give1millioncashButton.Text = ""
+Give1millioncashButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+Give1millioncashButton.TextSize = 14.000
+Give1millioncashButton.MouseButton1Down:connect(function()
+    if PrintTestButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+            game.Players.Trailis_Fantom.leaderstats.Cash.Value = 1000000
+        end
+    end
+end)
+ 
+UICorner_2.Parent = Give1millioncashButton
+ 
+FlyButton.Name = "FlyButton"
+FlyButton.Parent = main
+FlyButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+FlyButton.BorderSizePixel = 0
+FlyButton.Position = UDim2.new(0.77477479, 0, 0.322916687, 0)
+FlyButton.Size = UDim2.new(0, 30, 0, 30)
+FlyButton.Font = Enum.Font.SourceSans
+FlyButton.Text = ""
+FlyButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+FlyButton.TextSize = 14.000
+FlyButton.MouseButton1Down:connect(function()
+    if FlyButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+            repeat wait()
+            until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+            local mouse = game.Players.LocalPlayer:GetMouse()
+            repeat wait() until mouse
+            local plr = game.Players.LocalPlayer
+            local torso = plr.Character.Torso
+            local flying = true
+            local deb = true
+            local ctrl = {f = 0, b = 0, l = 0, r = 0}
+            local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+            local maxspeed = 50
+            local speed = 0
+ 
+            function Fly()
+                local bg = Instance.new("BodyGyro", torso)
+                bg.P = 9e4
+                bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+                bg.cframe = torso.CFrame
+                local bv = Instance.new("BodyVelocity", torso)
+                bv.velocity = Vector3.new(0,0.1,0)
+                bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+                repeat wait()
+                    plr.Character.Humanoid.PlatformStand = true
+                    if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+                        speed = speed+.5+(speed/maxspeed)
+                        if speed > maxspeed then
+                            speed = maxspeed
+                        end
+                    elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+                        speed = speed-1
+                        if speed < 0 then
+                            speed = 0
+                        end
+                    end
+                    if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+                        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+                        lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+                    elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+                        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+                    else
+                        bv.velocity = Vector3.new(0,0.1,0)
+                    end
+                    bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+                until not flying
+                ctrl = {f = 0, b = 0, l = 0, r = 0}
+                lastctrl = {f = 0, b = 0, l = 0, r = 0}
+                speed = 0
+                bg:Destroy()
+                bv:Destroy()
+                plr.Character.Humanoid.PlatformStand = false
+            end
+            mouse.KeyDown:connect(function(key)
+                if key:lower() == "e" then
+                    if flying then flying = false
+                    else
+                        flying = true
+                        Fly()
+                    end
+                elseif key:lower() == "w" then
+                    ctrl.f = 1
+                elseif key:lower() == "s" then
+                    ctrl.b = -1
+                elseif key:lower() == "a" then
+                    ctrl.l = -1
+                elseif key:lower() == "d" then
+                    ctrl.r = 1
+                end
+            end)
+            mouse.KeyUp:connect(function(key)
+                if key:lower() == "w" then
+                    ctrl.f = 0
+                elseif key:lower() == "s" then
+                    ctrl.b = 0
+                elseif key:lower() == "a" then
+                    ctrl.l = 0
+                elseif key:lower() == "d" then
+                    ctrl.r = 0
+                end
+            end)
+            Fly()
+        end
+    end
+end)
+ 
+UICorner_3.Parent = FlyButton
+ 
+Fly.Name = "Fly"
+Fly.Parent = main
+Fly.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Fly.BackgroundTransparency = 1.000
+Fly.BorderSizePixel = 0
+Fly.Position = UDim2.new(0, 0, 0.305555582, 0)
+Fly.Size = UDim2.new(0, 117, 0, 40)
+Fly.Font = Enum.Font.SourceSans
+Fly.Text = "Fly"
+Fly.TextColor3 = Color3.fromRGB(255, 255, 255)
+Fly.TextScaled = true
+Fly.TextSize = 35.000
+Fly.TextWrapped = true
+ 
+UnlimitedhealthButton.Name = "Unlimited healthButton"
+UnlimitedhealthButton.Parent = main
+UnlimitedhealthButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+UnlimitedhealthButton.BorderSizePixel = 0
+UnlimitedhealthButton.Position = UDim2.new(0.77477479, 0, 0.461805582, 0)
+UnlimitedhealthButton.Size = UDim2.new(0, 30, 0, 30)
+UnlimitedhealthButton.Font = Enum.Font.SourceSans
+UnlimitedhealthButton.Text = ""
+UnlimitedhealthButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+UnlimitedhealthButton.TextSize = 35.000
+UnlimitedhealthButton.MouseButton1Down:connect(function()
+    if UnlimitedhealthButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+            -- Best Infinite Health Script (Made From Original) 
+            -- If you get damaged, you will get back to 100 health in 0 seconds. 
+            -- It is also used for games, Recommended Not For Games.
+            -- add me if you have bugs or it is not working: 05wo
+            -- I also Make Exploits.
+            -- Use it carefully.
+ 
+            local REGEN_RATE = 100/100 -- If you change these settings it will broke.
+            local REGEN_STEP = 0 -- Don't Change These Settings!
+            -- DON'T CHANGE!
+            --------------------------------------------------------------------------------
+ 
+            local Character = script.Parent
+            local Humanoid = Character:WaitForChild'Humanoid'
+ 
+            --------------------------------------------------------------------------------
+ 
+            while true do
+                while Humanoid.Health < Humanoid.MaxHealth do
+                    local dt = wait(REGEN_STEP)
+                    local dh = dt*REGEN_RATE*Humanoid.MaxHealth
+                    Humanoid.Health = math.min(Humanoid.Health + dh, Humanoid.MaxHealth)
+                end
+                Humanoid.HealthChanged:Wait()
+            end
+            -- Lmao
+        end
+    end
+end)
+ 
+UICorner_4.Parent = UnlimitedhealthButton
+ 
+Unlimitedhealth.Name = "Unlimited health"
+Unlimitedhealth.Parent = main
+Unlimitedhealth.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Unlimitedhealth.BackgroundTransparency = 1.000
+Unlimitedhealth.BorderSizePixel = 0
+Unlimitedhealth.Position = UDim2.new(0, 0, 0.440972269, 0)
+Unlimitedhealth.Size = UDim2.new(0, 117, 0, 40)
+Unlimitedhealth.Font = Enum.Font.SourceSans
+Unlimitedhealth.Text = "Unlimited health"
+Unlimitedhealth.TextColor3 = Color3.fromRGB(255, 255, 255)
+Unlimitedhealth.TextScaled = true
+Unlimitedhealth.TextSize = 35.000
+Unlimitedhealth.TextWrapped = true
+ 
+PrintTest.Name = "Print Test"
+PrintTest.Parent = main
+PrintTest.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PrintTest.BackgroundTransparency = 1.000
+PrintTest.BorderSizePixel = 0
+PrintTest.Position = UDim2.new(0, 0, 0.579861164, 0)
+PrintTest.Size = UDim2.new(0, 117, 0, 40)
+PrintTest.Font = Enum.Font.SourceSans
+PrintTest.Text = "Print Text \"Test\""
+PrintTest.TextColor3 = Color3.fromRGB(255, 255, 255)
+PrintTest.TextScaled = true
+PrintTest.TextSize = 35.000
+PrintTest.TextWrapped = true
+ 
+PrintTestButton.Name = "Print TestButton"
+PrintTestButton.Parent = main
+PrintTestButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+PrintTestButton.BorderSizePixel = 0
+PrintTestButton.Position = UDim2.new(0.77477479, 0, 0.600694478, 0)
+PrintTestButton.Size = UDim2.new(0, 30, 0, 30)
+PrintTestButton.Font = Enum.Font.SourceSans
+PrintTestButton.Text = ""
+PrintTestButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+PrintTestButton.TextSize = 35.000
+PrintTestButton.MouseButton1Down:connect(function()
+    if PrintTestButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+            print("Test")
+            while true do
+                wait()--make sure you have this. Without it. It will crash the Server/Client.
+            end 
+        end
+    end
+end)
+ 
+UICorner_5.Parent = PrintTestButton
+ 
+Label.Name = "Label"
+Label.Parent = main
+Label.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Label.BackgroundTransparency = 1.000
+Label.BorderSizePixel = 0
+Label.Position = UDim2.new(0.135135129, 0, 0, 0)
+Label.Size = UDim2.new(0, 162, 0, 40)
+Label.Font = Enum.Font.SourceSans
+Label.Text = "Da Hood gui"
+Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+Label.TextScaled = true
+Label.TextSize = 50.000
+Label.TextWrapped = true
+ 
+-- Scripts:
+ 
+local function JKAIRY_fake_script() -- Give1millioncashButton.LocalScript 
+    local script = Instance.new('LocalScript', Give1millioncashButton)
+ 
+    button = script.Parent
+    blue = button.BackgroundColor3
+    red = Color3.new(1,0,0)
+    green = Color3.new(0,1,0)
+    print("Found colors and button")
+    
+    script.Parent.MouseButton1Click:connect(function()
+        if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+            button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        elseif button.BackgroundColor3 == red then
+            button.BackgroundColor3 = green
+        else
+            button.BackgroundColor3 = blue
+        end
+    end)
+end
+coroutine.wrap(JKAIRY_fake_script)()
+local function DTBTOVB_fake_script() -- FlyButton.LocalScript 
+    local script = Instance.new('LocalScript', FlyButton)
+ 
+    button = script.Parent
+    blue = button.BackgroundColor3
+    red = Color3.new(1,0,0)
+    green = Color3.new(0,1,0)
+    print("Found colors and button")
+    
+    script.Parent.MouseButton1Click:connect(function()
+        if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+            button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        elseif button.BackgroundColor3 == red then
+            button.BackgroundColor3 = green
+        else
+            button.BackgroundColor3 = blue
+        end
+    end)
+end
+coroutine.wrap(DTBTOVB_fake_script)()
+local function WGOU_fake_script() -- UnlimitedhealthButton.LocalScript 
+    local script = Instance.new('LocalScript', UnlimitedhealthButton)
+ 
+    button = script.Parent
+    blue = button.BackgroundColor3
+    red = Color3.new(1,0,0)
+    green = Color3.new(0,1,0)
+    print("Found colors and button")
+    
+    script.Parent.MouseButton1Click:connect(function()
+        if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+            button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        elseif button.BackgroundColor3 == red then
+            button.BackgroundColor3 = green
+        else
+            button.BackgroundColor3 = blue
+        end
+    end)
+end
+coroutine.wrap(WGOU_fake_script)()
+local function NJXF_fake_script() -- PrintTestButton.LocalScript 
+    local script = Instance.new('LocalScript', PrintTestButton)
+ 
+    button = script.Parent
+    blue = button.BackgroundColor3
+    red = Color3.new(1,0,0)
+    green = Color3.new(0,1,0)
+    print("Found colors and button")
+    
+    script.Parent.MouseButton1Click:connect(function()
+        if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+            button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        elseif button.BackgroundColor3 == red then
+            button.BackgroundColor3 = green
+        else
+            button.BackgroundColor3 = blue
+        end
+    end)
+end
+coroutine.wrap(NJXF_fake_script)()
+ 
+RAW Paste Data
+
+local ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local Give1millioncash = Instance.new("TextLabel")
+local Give1millioncashButton = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local FlyButton = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local Fly = Instance.new("TextLabel")
+local UnlimitedhealthButton = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local Unlimitedhealth = Instance.new("TextLabel")
+local PrintTest = Instance.new("TextLabel")
+local PrintTestButton = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+local Label = Instance.new("TextLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+
+main.Name = "main"
+main.Parent = ScreenGui
+main.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+main.Position = UDim2.new(0.0217687078, 0, 0.0605427995, 0)
+main.Size = UDim2.new(0, 222, 0, 288)
+main.Active = true
+main.Draggable = true
+
+
+UICorner.CornerRadius = UDim.new(0, 15)
+UICorner.Parent = main
+
+Give1millioncash.Name = "Give 1 million cash"
+Give1millioncash.Parent = main
+Give1millioncash.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Give1millioncash.BackgroundTransparency = 1.000
+Give1millioncash.BorderSizePixel = 0
+Give1millioncash.Position = UDim2.new(0, 0, 0.166666672, 0)
+Give1millioncash.Size = UDim2.new(0, 162, 0, 40)
+Give1millioncash.Font = Enum.Font.SourceSans
+Give1millioncash.Text = "Give 1 million cash"
+Give1millioncash.TextColor3 = Color3.fromRGB(255, 255, 255)
+Give1millioncash.TextScaled = true
+Give1millioncash.TextSize = 35.000
+Give1millioncash.TextWrapped = true
+
+Give1millioncashButton.Name = "Give 1 million cashButton"
+Give1millioncashButton.Parent = main
+Give1millioncashButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Give1millioncashButton.BorderSizePixel = 0
+Give1millioncashButton.Position = UDim2.new(0.77477479, 0, 0.166666672, 0)
+Give1millioncashButton.Size = UDim2.new(0, 30, 0, 30)
+Give1millioncashButton.Font = Enum.Font.SourceSans
+Give1millioncashButton.Text = ""
+Give1millioncashButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+Give1millioncashButton.TextSize = 14.000
+Give1millioncashButton.MouseButton1Down:connect(function()
+	if PrintTestButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+			game.Players.Trailis_Fantom.leaderstats.Cash.Value = 1000000
+		end
+	end
+end)
+
+UICorner_2.Parent = Give1millioncashButton
+
+FlyButton.Name = "FlyButton"
+FlyButton.Parent = main
+FlyButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+FlyButton.BorderSizePixel = 0
+FlyButton.Position = UDim2.new(0.77477479, 0, 0.322916687, 0)
+FlyButton.Size = UDim2.new(0, 30, 0, 30)
+FlyButton.Font = Enum.Font.SourceSans
+FlyButton.Text = ""
+FlyButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+FlyButton.TextSize = 14.000
+FlyButton.MouseButton1Down:connect(function()
+	if FlyButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+			repeat wait()
+			until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+			local mouse = game.Players.LocalPlayer:GetMouse()
+			repeat wait() until mouse
+			local plr = game.Players.LocalPlayer
+			local torso = plr.Character.Torso
+			local flying = true
+			local deb = true
+			local ctrl = {f = 0, b = 0, l = 0, r = 0}
+			local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+			local maxspeed = 50
+			local speed = 0
+
+			function Fly()
+				local bg = Instance.new("BodyGyro", torso)
+				bg.P = 9e4
+				bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+				bg.cframe = torso.CFrame
+				local bv = Instance.new("BodyVelocity", torso)
+				bv.velocity = Vector3.new(0,0.1,0)
+				bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+				repeat wait()
+					plr.Character.Humanoid.PlatformStand = true
+					if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+						speed = speed+.5+(speed/maxspeed)
+						if speed > maxspeed then
+							speed = maxspeed
+						end
+					elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+						speed = speed-1
+						if speed < 0 then
+							speed = 0
+						end
+					end
+					if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+						bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+						lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+					elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+						bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+					else
+						bv.velocity = Vector3.new(0,0.1,0)
+					end
+					bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+				until not flying
+				ctrl = {f = 0, b = 0, l = 0, r = 0}
+				lastctrl = {f = 0, b = 0, l = 0, r = 0}
+				speed = 0
+				bg:Destroy()
+				bv:Destroy()
+				plr.Character.Humanoid.PlatformStand = false
+			end
+			mouse.KeyDown:connect(function(key)
+				if key:lower() == "e" then
+					if flying then flying = false
+					else
+						flying = true
+						Fly()
+					end
+				elseif key:lower() == "w" then
+					ctrl.f = 1
+				elseif key:lower() == "s" then
+					ctrl.b = -1
+				elseif key:lower() == "a" then
+					ctrl.l = -1
+				elseif key:lower() == "d" then
+					ctrl.r = 1
+				end
+			end)
+			mouse.KeyUp:connect(function(key)
+				if key:lower() == "w" then
+					ctrl.f = 0
+				elseif key:lower() == "s" then
+					ctrl.b = 0
+				elseif key:lower() == "a" then
+					ctrl.l = 0
+				elseif key:lower() == "d" then
+					ctrl.r = 0
+				end
+			end)
+			Fly()
+		end
+	end
+end)
+
+UICorner_3.Parent = FlyButton
+
+Fly.Name = "Fly"
+Fly.Parent = main
+Fly.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Fly.BackgroundTransparency = 1.000
+Fly.BorderSizePixel = 0
+Fly.Position = UDim2.new(0, 0, 0.305555582, 0)
+Fly.Size = UDim2.new(0, 117, 0, 40)
+Fly.Font = Enum.Font.SourceSans
+Fly.Text = "Fly"
+Fly.TextColor3 = Color3.fromRGB(255, 255, 255)
+Fly.TextScaled = true
+Fly.TextSize = 35.000
+Fly.TextWrapped = true
+
+UnlimitedhealthButton.Name = "Unlimited healthButton"
+UnlimitedhealthButton.Parent = main
+UnlimitedhealthButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+UnlimitedhealthButton.BorderSizePixel = 0
+UnlimitedhealthButton.Position = UDim2.new(0.77477479, 0, 0.461805582, 0)
+UnlimitedhealthButton.Size = UDim2.new(0, 30, 0, 30)
+UnlimitedhealthButton.Font = Enum.Font.SourceSans
+UnlimitedhealthButton.Text = ""
+UnlimitedhealthButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+UnlimitedhealthButton.TextSize = 35.000
+UnlimitedhealthButton.MouseButton1Down:connect(function()
+	if UnlimitedhealthButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+			-- Best Infinite Health Script (Made From Original) 
+			-- If you get damaged, you will get back to 100 health in 0 seconds. 
+			-- It is also used for games, Recommended Not For Games.
+			-- add me if you have bugs or it is not working: 05wo
+			-- I also Make Exploits.
+			-- Use it carefully.
+
+			local REGEN_RATE = 100/100 -- If you change these settings it will broke.
+			local REGEN_STEP = 0 -- Don't Change These Settings!
+			-- DON'T CHANGE!
+			--------------------------------------------------------------------------------
+
+			local Character = script.Parent
+			local Humanoid = Character:WaitForChild'Humanoid'
+
+			--------------------------------------------------------------------------------
+
+			while true do
+				while Humanoid.Health < Humanoid.MaxHealth do
+					local dt = wait(REGEN_STEP)
+					local dh = dt*REGEN_RATE*Humanoid.MaxHealth
+					Humanoid.Health = math.min(Humanoid.Health + dh, Humanoid.MaxHealth)
+				end
+				Humanoid.HealthChanged:Wait()
+			end
+			-- Lmao
+		end
+	end
+end)
+
+UICorner_4.Parent = UnlimitedhealthButton
+
+Unlimitedhealth.Name = "Unlimited health"
+Unlimitedhealth.Parent = main
+Unlimitedhealth.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Unlimitedhealth.BackgroundTransparency = 1.000
+Unlimitedhealth.BorderSizePixel = 0
+Unlimitedhealth.Position = UDim2.new(0, 0, 0.440972269, 0)
+Unlimitedhealth.Size = UDim2.new(0, 117, 0, 40)
+Unlimitedhealth.Font = Enum.Font.SourceSans
+Unlimitedhealth.Text = "Unlimited health"
+Unlimitedhealth.TextColor3 = Color3.fromRGB(255, 255, 255)
+Unlimitedhealth.TextScaled = true
+Unlimitedhealth.TextSize = 35.000
+Unlimitedhealth.TextWrapped = true
+
+PrintTest.Name = "Print Test"
+PrintTest.Parent = main
+PrintTest.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PrintTest.BackgroundTransparency = 1.000
+PrintTest.BorderSizePixel = 0
+PrintTest.Position = UDim2.new(0, 0, 0.579861164, 0)
+PrintTest.Size = UDim2.new(0, 117, 0, 40)
+PrintTest.Font = Enum.Font.SourceSans
+PrintTest.Text = "Print Text \"Test\""
+PrintTest.TextColor3 = Color3.fromRGB(255, 255, 255)
+PrintTest.TextScaled = true
+PrintTest.TextSize = 35.000
+PrintTest.TextWrapped = true
+
+PrintTestButton.Name = "Print TestButton"
+PrintTestButton.Parent = main
+PrintTestButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+PrintTestButton.BorderSizePixel = 0
+PrintTestButton.Position = UDim2.new(0.77477479, 0, 0.600694478, 0)
+PrintTestButton.Size = UDim2.new(0, 30, 0, 30)
+PrintTestButton.Font = Enum.Font.SourceSans
+PrintTestButton.Text = ""
+PrintTestButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+PrintTestButton.TextSize = 35.000
+PrintTestButton.MouseButton1Down:connect(function()
+	if PrintTestButton.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then do
+			print("Test")
+			while true do
+				wait()--make sure you have this. Without it. It will crash the Server/Client.
+			end 
+		end
+	end
+end)
+
+UICorner_5.Parent = PrintTestButton
+
+Label.Name = "Label"
+Label.Parent = main
+Label.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Label.BackgroundTransparency = 1.000
+Label.BorderSizePixel = 0
+Label.Position = UDim2.new(0.135135129, 0, 0, 0)
+Label.Size = UDim2.new(0, 162, 0, 40)
+Label.Font = Enum.Font.SourceSans
+Label.Text = "Da Hood gui"
+Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+Label.TextScaled = true
+Label.TextSize = 50.000
+Label.TextWrapped = true
+
+-- Scripts:
+
+local function JKAIRY_fake_script() -- Give1millioncashButton.LocalScript 
+	local script = Instance.new('LocalScript', Give1millioncashButton)
+
+	button = script.Parent
+	blue = button.BackgroundColor3
+	red = Color3.new(1,0,0)
+	green = Color3.new(0,1,0)
+	print("Found colors and button")
+	
+	script.Parent.MouseButton1Click:connect(function()
+		if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+			button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+		elseif button.BackgroundColor3 == red then
+			button.BackgroundColor3 = green
+		else
+			button.BackgroundColor3 = blue
+		end
+	end)
+end
+coroutine.wrap(JKAIRY_fake_script)()
+local function DTBTOVB_fake_script() -- FlyButton.LocalScript 
+	local script = Instance.new('LocalScript', FlyButton)
+
+	button = script.Parent
+	blue = button.BackgroundColor3
+	red = Color3.new(1,0,0)
+	green = Color3.new(0,1,0)
+	print("Found colors and button")
+	
+	script.Parent.MouseButton1Click:connect(function()
+		if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+			button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+		elseif button.BackgroundColor3 == red then
+			button.BackgroundColor3 = green
+		else
+			button.BackgroundColor3 = blue
+		end
+	end)
+end
+coroutine.wrap(DTBTOVB_fake_script)()
+local function WGOU_fake_script() -- UnlimitedhealthButton.LocalScript 
+	local script = Instance.new('LocalScript', UnlimitedhealthButton)
+
+	button = script.Parent
+	blue = button.BackgroundColor3
+	red = Color3.new(1,0,0)
+	green = Color3.new(0,1,0)
+	print("Found colors and button")
+	
+	script.Parent.MouseButton1Click:connect(function()
+		if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+			button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+		elseif button.BackgroundColor3 == red then
+			button.BackgroundColor3 = green
+		else
+			button.BackgroundColor3 = blue
+		end
+	end)
+end
+coroutine.wrap(WGOU_fake_script)()
+local function NJXF_fake_script() -- PrintTestButton.LocalScript 
+	local script = Instance.new('LocalScript', PrintTestButton)
+
+	button = script.Parent
+	blue = button.BackgroundColor3
+	red = Color3.new(1,0,0)
+	green = Color3.new(0,1,0)
+	print("Found colors and button")
+	
+	script.Parent.MouseButton1Click:connect(function()
+		if button.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+			button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+		elseif button.BackgroundColor3 == red then
+			button.BackgroundColor3 = green
+		else
+			button.BackgroundColor3 = blue
+		end
+	end)
+end
+coroutine.wrap(NJXF_fake_script)()
+
